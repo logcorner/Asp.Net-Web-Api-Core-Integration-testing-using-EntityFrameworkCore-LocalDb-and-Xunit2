@@ -47,9 +47,12 @@ namespace TokenAuthWebApiCore.Server.IntegrationTest.Setup
 		private static void CreateDatabase()
 		{
 			ExecuteSqlCommand(Master, $@"
+			  IF(db_id(N'VS2017Db_TokenAuthWebApiCore.Server.Local') IS NULL)
+			  BEGIN
                 CREATE DATABASE [VS2017Db_TokenAuthWebApiCore.Server.Local]
                 ON (NAME = 'VS2017Db_TokenAuthWebApiCore.Server.Local',
-                FILENAME = '{Filename}')");
+                FILENAME = '{Filename}')
+              END");
 
 			var connectionStringBuilder = new SqlConnectionStringBuilder
 			{
@@ -84,6 +87,10 @@ namespace TokenAuthWebApiCore.Server.IntegrationTest.Setup
                     EXEC sp_detach_db 'VS2017Db_TokenAuthWebApiCore.Server.Local', 'true'");
 
 				fileNames.ForEach(File.Delete);
+			}
+			if (File.Exists(Filename))
+			{
+				File.Delete(Filename);
 			}
 		}
 

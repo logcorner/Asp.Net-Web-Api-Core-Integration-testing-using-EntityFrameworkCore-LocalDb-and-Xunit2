@@ -1,9 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
@@ -11,17 +5,21 @@ using System.Net;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using TokenAuthWebApiCore.Server.Filters;
 using TokenAuthWebApiCore.Server.Models;
 
-namespace TokenAuthWebApiCore.Server.Controllers.Web
+namespace TokenAuthWebApiCore.Server.Controllers
 {
 	[Route("api/auth")]
 	public class AuthController : Controller
 	{
 		private readonly UserManager<MyUser> _userManager;
-		private readonly SignInManager<MyUser> _signInManager;
-		private readonly RoleManager<MyRole> _roleManager;
 		private IPasswordHasher<MyUser> _passwordHasher;
 		private IConfigurationRoot _configurationRoot;
 		private ILogger<AuthController> _logger;
@@ -30,8 +28,6 @@ namespace TokenAuthWebApiCore.Server.Controllers.Web
 			, IPasswordHasher<MyUser> passwordHasher, IConfigurationRoot configurationRoot, ILogger<AuthController> logger)
 		{
 			_userManager = userManager;
-			_signInManager = signInManager;
-			_roleManager = roleManager;
 			_logger = logger;
 			_passwordHasher = passwordHasher;
 			_configurationRoot = configurationRoot;
