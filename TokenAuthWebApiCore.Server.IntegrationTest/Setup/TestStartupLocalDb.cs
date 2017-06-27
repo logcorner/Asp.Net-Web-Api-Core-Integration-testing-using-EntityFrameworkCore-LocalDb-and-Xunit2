@@ -92,6 +92,10 @@ namespace TokenAuthWebApiCore.Server.IntegrationTest.Setup
 			{
 				File.Delete(Filename);
 			}
+			if (File.Exists(LogFilename))
+			{
+				File.Delete(LogFilename);
+			}
 		}
 
 		private static void ExecuteSqlCommand(
@@ -145,5 +149,10 @@ namespace TokenAuthWebApiCore.Server.IntegrationTest.Setup
 			Path.GetDirectoryName(
 				typeof(TestStartupLocalDb).GetTypeInfo().Assembly.Location),
 			"VS2017Db_TokenAuthWebApiCore.Server.Local.mdf");
+
+		private static string LogFilename => Path.Combine(
+			Path.GetDirectoryName(
+				typeof(TestStartupLocalDb).GetTypeInfo().Assembly.Location),
+			"VS2017Db_TokenAuthWebApiCore.Server.Local_log.ldf");
 	}
 }
