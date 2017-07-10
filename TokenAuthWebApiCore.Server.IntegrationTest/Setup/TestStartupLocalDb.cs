@@ -29,7 +29,8 @@ namespace TokenAuthWebApiCore.Server.IntegrationTest.Setup
 			services
 			  .AddEntityFrameworkSqlServer()
 			  .AddDbContext<SecurityContext>(
-				options => options.UseSqlServer(connection, sqlOptions => sqlOptions.MigrationsAssembly("TokenAuthWebApiCore.Server"))
+				options => options.UseSqlServer(connection, sqlOptions =>
+				sqlOptions.MigrationsAssembly("TokenAuthWebApiCore.Server"))
 			  );
 		}
 
@@ -68,7 +69,6 @@ namespace TokenAuthWebApiCore.Server.IntegrationTest.Setup
 			using (var context = new SecurityContext(optionsBuilder.Options))
 			{
 				context.Database.Migrate();
-				//context.Seed();
 				context.SaveChanges();
 			}
 		}
